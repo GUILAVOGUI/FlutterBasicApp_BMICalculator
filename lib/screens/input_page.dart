@@ -1,10 +1,14 @@
 
-import 'package:bmi_calculator/reusable_card.dart';
+import 'package:bmi_calculator/components/constants.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
+import 'package:bmi_calculator/screens/calculator_brain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'constants.dart';
-import 'icon_content.dart';
+import '../components/buttons.dart';
+import 'result_page.dart';
+
+import '../components/icon_content.dart';
 
 enum Gender{
   male,
@@ -185,22 +189,20 @@ class _InputPageState extends State<InputPage> {
               ),
             ],
           ),),
-          GestureDetector(
+          BottomButton(
+            buttonTitle: 'CALCULATE',
             onTap: (){
-               Navigator.pushNamed(context, '/result');
+              CalculatorBrain calc= CalculatorBrain(height: height,weight: weight);
+              print(calc.calculateBMI());
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ResultPage(
+                  bmiResult:  calc.calculateBMI(),
+                  resultText: calc.getResult(),
+                  interpretation: calc.getInterpretation(),
+                ))
+
+              );
             },
-            child: Container(
-              color: kBottomContainerColour,
-              margin: EdgeInsets.only(top: 10),
-              width: double.infinity,
-              height: kBottomContainerHeight,
-              child: Center(
-                child: Text(
-                  'RESULT',
-                  style: kUltraTextStyle,
-                ),
-              ),
-            ),
           ),
         ],
       )
@@ -208,27 +210,4 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
-class RoundIconButton extends StatelessWidget {
-  // const RoundIconButton({Key? key}) : super(key: key);
-
-  final IconData icon;
-  final Function onPressed;
-   RoundIconButton({@required this.icon, @required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon) ,      
-      elevation: 20,
-      constraints: BoxConstraints.tightFor(
-        width: 56,
-        height: 56,
-      ),
-      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      shape: CircleBorder(),
-        fillColor: Color(0xFF4C4F5E),
-        onPressed: onPressed,
-    );
-  }
-}
 
