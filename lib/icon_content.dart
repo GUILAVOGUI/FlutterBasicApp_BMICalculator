@@ -2,9 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-const labelTextStyle = TextStyle(
-  fontSize: 18,color: Color(0xFF8D8E98),
-);
+import 'constants.dart';
+
 
 class ReusableCardChild extends StatelessWidget {
 
@@ -24,7 +23,7 @@ class ReusableCardChild extends StatelessWidget {
         ,SizedBox(height: 15,),
         Text(
           gender,
-          style: labelTextStyle,
+          style: kLabelTextStyle,
         )
       ],
     );
